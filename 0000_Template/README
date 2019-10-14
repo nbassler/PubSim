@@ -1,0 +1,17 @@
+--- EXAMPLE "c12rifisobp" ---
+
+Features:
+  - C-12 beam, external beam file loaded which creates a SOBP.
+  - SOBP is spherical (!) with diameter 5 cm, centered at z = 10 cm.
+  - GSI 3 mm ripple filter implementation
+  - Vavilov straggling and Moliere multiple scattering activated
+  - 2x2x1 meter water target
+  - 1) 1D MSH scoring along z integrating over entire beam
+  - 2) 1D MSH scoring along z integrating over 1x1x0.1 cm blocks along center axis.
+  - 3) 2D MSH scoring in a 1 cm thick Y-Z plane
+  - 10000 events
+
+Execution:
+Simply run the shieldhit command from this directory. If you are outside of the directory, you can specify the dir in the argument, i.e.:
+
+shieldhit c12rifisobp/
