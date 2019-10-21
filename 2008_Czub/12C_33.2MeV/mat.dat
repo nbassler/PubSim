@@ -6,7 +6,7 @@ END
 
 MEDIUM 2
 *Havar
-STATE 0
+STATE 2
 RHO 8.3
 NUCLID 27 6.388
 NUCLID 24 3.658
@@ -26,7 +26,8 @@ LOADDEDX
 END
 
 MEDIUM 5
-*water
+*water, used as estimate for the cells
+RHO 0.9982
 ICRU 276
 LOADDEDX
 END
