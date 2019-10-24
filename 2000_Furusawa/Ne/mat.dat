@@ -1,0 +1,17 @@
+MEDIUM 1
+*aluminum
+ICRU 13
+LOADDEDX
+END
+
+MEDIUM 2
+*lucite (PMMA)
+ICRU 223
+END
+
+MEDIUM 3
+*water, used as estimate for the cells
+RHO 0.9982
+ICRU 276
+LOADDEDX
+END
