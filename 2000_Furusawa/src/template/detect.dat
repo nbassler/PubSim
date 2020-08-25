@@ -1,0 +1,23 @@
+# Very simple test of new scoring system
+#---------------Geometry--------------------
+Geometry Mesh
+   Name Mesh1D                   ! geometry type
+    X  -2.0  2.0    1
+    Y  -2.0  2.0    1
+    Z   5.0  5.01   1
+
+Filter
+    Name PrimPart
+    Z = ${Z}
+    A = ${A}
+    GEN = 0
+
+Output
+         Filename dose.txt
+         Fileformat txt
+         Geo Mesh1D
+	 Quantity AvgEnergy
+	 Quantity AvgEnergy PrimPart
+	 Quantity DLET
+	 Quantity DLET PrimPart
+	 Quantity Z2Beta2
