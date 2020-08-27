@@ -7,7 +7,7 @@ from scipy.interpolate import interp1d
 setup = ['HeV79', 'HeHSG', 'C135V79', 'C12V79', 'C135HSG',
          'C12HSG', 'C135T1', 'NeV79', 'NeHSG', 'NeT1']
 
-setup = ['C135V79', 'C12V79']
+setup = ['C135V79', 'C12V79', 'NeV79', 'HeV79']
 
 dirname = os.path.dirname(__file__)
 data_path = os.path.join(dirname, '../../data/')
