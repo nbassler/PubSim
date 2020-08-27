@@ -16,8 +16,16 @@ Output
          Filename dose.txt
          Fileformat txt
          Geo Mesh1D
-	 Quantity AvgEnergy
 	 Quantity AvgEnergy PrimPart
 	 Quantity DLET
 	 Quantity DLET PrimPart
-	 Quantity Z2Beta2
+	 Quantity TLET
+	 Quantity TLET PrimPart
+	 Quantity dQ
+	 Quantity dQ PrimPart
+	 Quantity tQ
+	 Quantity tQ PrimPart
+	 Quantity dZ2Beta2
+	 Quantity dZ2Beta2 PrimPart
+	 Quantity tZ2Beta2
+	 Quantity tZ2Beta2 PrimPart

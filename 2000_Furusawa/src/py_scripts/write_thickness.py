@@ -7,6 +7,8 @@ from scipy.interpolate import interp1d
 setup = ['HeV79', 'HeHSG', 'C135V79', 'C12V79', 'C135HSG',
          'C12HSG', 'C135T1', 'NeV79', 'NeHSG', 'NeT1']
 
+setup = ['C135V79', 'C12V79']
+
 dirname = os.path.dirname(__file__)
 data_path = os.path.join(dirname, '../../data/')
 first = True
@@ -26,14 +28,14 @@ for s in setup:
     # Fitting cubic splines to the ion type used
     fit_data = pd.read_excel(data_path +
                              'processed/' + ion + '.xlsx')
-    x = fit_data['Energy']
+    x = fit_data['LETd']/10
     y = fit_data['Thickness']
     f2 = interp1d(x, y, kind='cubic')
 
     # Applyting splines to energies in paper
     setup_data = pd.read_excel(data_path +
                                'raw/' + s + '.xlsx')
-    X = setup_data['MeV/nuc']
+    X = setup_data['dLET']
     print(len(X))
     XP = f2(X)
 
