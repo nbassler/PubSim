@@ -1,7 +1,7 @@
 * Stopping power tables calculated with libdEdx, version 1.2.1-svn0
 * by user fredo on host fredo-ThinkPad-P52s.
-* Date of this calculation: Tue Nov 17 13:53:24 2020
-* Timestamp: 20201117_135324
+* Date of this calculation: Fri Nov 20 10:14:45 2020
+* Timestamp: 20201120_101445
 * Target material id: 6
 * Target material name: CARBON
 * Algorithm: DEDX_PSTAR for z = 1 and DEDX_MSTAR for z > 1
