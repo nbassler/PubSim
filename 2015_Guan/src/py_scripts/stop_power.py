@@ -1,6 +1,9 @@
 import os
 import numpy as np
 
+'''
+Creates a new stopping power table by weighing all the ones listed in "files" by atomic weight contribution
+'''
 
 rel_path = '../template/'
 
@@ -10,6 +13,7 @@ data_path = os.path.join(dirname, rel_path)
 files = ['H.txt', 'Li.txt', 'C.txt', 'O.txt', 'Al.txt']
 weights_by_number = [0.3777, 0.0004, 0.4430, 0.1787, 0.0011]
 atom_weights = [1, 7, 12, 16, 27]
+
 weights = np.multiply(weights_by_number, atom_weights)
 
 
