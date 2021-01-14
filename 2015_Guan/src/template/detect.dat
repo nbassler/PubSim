@@ -11,6 +11,11 @@ Filter
     A = 1
     GEN = 0
 
+Filter
+    Name Protons
+    Z = 1
+    A = 1
+
 Output
          Filename data.txt
          Fileformat txt
@@ -18,4 +23,16 @@ Output
 	 Quantity AvgEnergy PrimPart
 	 Quantity DLET
 	 Quantity DLET PrimPart
-
+     Quantity DLET Protons
+	 Quantity TLET
+	 Quantity TLET PrimPart
+     Quantity TLET Protons
+     Quantity dZ2Beta2
+     Quantity dZ2Beta2 PrimPart
+     Quantity dZ2Beta2 Protons
+     Quantity dZeff2Beta2
+     Quantity dZeff2Beta2 PrimPart
+     Quantity dZeff2Beta2 Protons
+     Quantity tZeff2Beta2
+     Quantity tZeff2Beta2 PrimPart
+     Quantity tZeff2Beta2 Protons
