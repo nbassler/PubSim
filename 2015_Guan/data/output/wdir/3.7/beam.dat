@@ -1,0 +1,12 @@
+*         Input file FOR023.DAT for the SHIELD Transport Code
+
+RNDSEED      	89736501     ! Random seed
+JPART0       	2            ! Incident particle type
+TMAX0      	    79.7   0.0  ! Incident energy; (MeV/nucl)
+NSTAT           300000  	100000        ! NSTAT, Step of saving
+BEAMSIGMA       5     -5     ! beam width [cm]
+DELTAE          0.001        ! Reducing min energy loss to remove "stair" look
+STRAGG          2            ! Straggling: 0-Off 1-Gauss, 2-Vavilov
+MSCAT           2            ! Mult. scatt 0-Off 1-Gauss, 2-Moliere
+NUCRE           1            ! Nucl.Reac. switcher: 1-ON, 0-OFF
+DEMIN           0.001        ! lowering minumum value of E-loss
