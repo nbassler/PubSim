@@ -1,0 +1,37 @@
+# Very simple test of new scoring system
+#---------------Geometry--------------------
+Geometry Mesh
+   Name Cells                  ! geometry type
+    X   -15.0   15.0    1
+    Y   -15.0   15.0    1
+    Z   5.3   5.3005  1
+
+Geometry Mesh
+   Name Cells1D                  ! geometry type
+    X   -15.0   15.0    1
+    Y   -15.0   15.0    100
+    Z   5.3   5.3005  1
+
+Filter
+    Name PrimPart
+    Z = 1
+    A = 1
+    GEN = 0
+
+Output
+         Filename data.txt
+         Fileformat txt
+         Geo Cells1D
+	 Quantity AvgEnergy PrimPart
+	 Quantity Dose
+	 Quantity Dose PrimPart
+     Quantity Fluence PrimPart
+
+Output
+         Filename diff_data.txt
+         Fileformat txt
+         Geo Cells
+	 Quantity Fluence PrimPart
+     Diff1   0.0   38.0   200
+     Diff1Type  E
+
