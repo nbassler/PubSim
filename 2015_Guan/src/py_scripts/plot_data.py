@@ -12,7 +12,7 @@ rows = 5
 cols = 5
 
 # loading data into pandas
-with open(data_path + '../collected_data.txt', 'r') as col:
+with open(data_path + '../collected_data_st1.txt', 'r') as col:
     df = pd.read_csv(col, delimiter=' ')
 
 thick = df.PMMA.unique()
@@ -40,8 +40,9 @@ for i in thick:
         print('stdom:')
         print(df_i.std().div(math.sqrt(len(df_i.index))))
 
-print(df_mean)
-print(df_stdom)
+item = 'DLET'
+print(df_mean[item])
+print(df_stdom[item])
 print(thick)
 
 r1 = 0

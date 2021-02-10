@@ -1,9 +1,10 @@
 # Very simple test of new scoring system
 #---------------Geometry--------------------
-Geometry Cyl
+Geometry Mesh
    Name Cells                  ! geometry type
-    R   0.0  4.0    1
-    Z   5.3  5.3005    1
+    X   -15.0   15.0    1
+    Y   -15.0   15.0    1
+    Z   5.3   5.3005  1
 
 Filter
     Name PrimPart
