@@ -12,7 +12,7 @@ rows = 5
 cols = 5
 
 # loading data into pandas
-with open(data_path + '../collected_data_st1.txt', 'r') as col:
+with open(data_path + '../collected_data_2.2e7_parts.txt', 'r') as col:
     df = pd.read_csv(col, delimiter=' ')
 
 thick = df.PMMA.unique()
@@ -44,6 +44,12 @@ item = 'DLET'
 print(df_mean[item])
 print(df_stdom[item])
 print(thick)
+rel_stdom = []
+for i in headers[1:]:
+    rel_stdom.append(np.mean(df_stdom[i] / df_mean[i]))
+print(rel_stdom)
+print(headers[1:])
+
 
 r1 = 0
 r2 = 0
