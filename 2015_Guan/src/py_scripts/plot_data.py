@@ -12,7 +12,7 @@ rows = 5
 cols = 5
 
 # loading data into pandas
-with open(data_path + '../collected_data_2.2e7_parts.txt', 'r') as col:
+with open(data_path + '../collected_data.txt', 'r') as col:
     df = pd.read_csv(col, delimiter=' ')
 
 thick = df.PMMA.unique()
@@ -33,17 +33,6 @@ for i in thick:
     # stdom, dividing std with sqrt of number of data-files
     df_stdom.loc[str(i)] = df_i.std().div(math.sqrt(len(df_i.index)))
 
-    if i == '4.2':
-        print(df_i)
-        print('mean:')
-        print(df_i.mean())
-        print('stdom:')
-        print(df_i.std().div(math.sqrt(len(df_i.index))))
-
-item = 'DLET'
-print(df_mean[item])
-print(df_stdom[item])
-print(thick)
 rel_stdom = []
 for i in headers[1:]:
     rel_stdom.append(np.mean(df_stdom[i] / df_mean[i]))

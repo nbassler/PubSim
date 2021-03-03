@@ -5,11 +5,18 @@ rel_path = '../../data/output/'
 #thickn_char = 76
 row_in_detect = 27
 header = 'PMMA AvgEnergyPrim Dose DosePrim DoseProt DLET DLETPrim DLETProt TLET TLETPrim TLETProt dQ dQPrim dQProt tQ tQPrim tQProt dZeff2Beta2 dZeff2Beta2Prim dZeff2Beta2Prot tZeff2Beta2 tZeff2Beta2Prim tZeff2Beta2Prot'
+ion = 'H'
 dirname = os.path.dirname(__file__)
 data_path = os.path.join(dirname, rel_path + 'wdir/')
 
 # This generates a list of all subfolder paths
 subfolders = [x[0] for x in os.walk(data_path)][1:]
+filt_folders = []
+for i in subfolders:
+    if 'wdir/' + ion + '_' in i:
+        filt_folders.append(i)
+print(filt_folders)
+print(subfolders)
 
 
 # Openfing txt file where the data shall be collected
@@ -19,7 +26,7 @@ with open(data_path + '../collected_data.txt', 'w') as col:
     col.write(header + '\n')
 
     # going through subfolders, first writing the LET value as reference (taken from the folder name), then adding the data in the SH-file
-    for i in subfolders:
+    for i in filt_folders:
         _, _, filenames = next(os.walk(i))
 
         # collects if the filename starts with 'data'
@@ -28,7 +35,7 @@ with open(data_path + '../collected_data.txt', 'w') as col:
                 with open(i + '/' + j, 'r') as f:
                     try:
                         a = f.readlines()[row_in_detect]
-                        col.write(i[len(data_path):])
+                        col.write(i[len(data_path) + len(ion) + 1:])
                         col.write(a)
                         f.close()
                     except:
