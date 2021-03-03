@@ -1,5 +1,3 @@
-*         Input file FOR023.DAT for the SHIELD Transport Code
-
 RNDSEED      	89736501     ! Random seed
 JPART0       	${JPART}           ! Incident particle type
 HIPROJ		${A}   ${Z}
