@@ -2,13 +2,10 @@
 #---------------Geometry--------------------
 Geometry Mesh
    Name Cells                  ! geometry type
-    X   -15.0   15.0    1
-    Y   -15.0   15.0    1
+    X   -17.0   17.0    1
+    Y   -17.0   17.0    1
     Z   5.3   5.3005  1
 
-Filter
-    NAME 100kev
-    ENUC > 0.1
 
 Filter
     Name PrimPart
@@ -34,30 +31,38 @@ Filter
     A = 1
     ENUC > 0.1
 
+Filter
+    Name All
+    Z > 0
+
+Filter
+    Name All_100kev
+    Z > 0
+    ENUC > 0.1
 Output
          Filename data.txt
          Fileformat txt
          Geo Cells
 	 Quantity AvgEnergy PrimPart
-	 Quantity Dose
+	 Quantity Dose All
 	 Quantity Dose PrimPart
      Quantity Dose Proton
-	 Quantity DLET
+	 Quantity DLET All
 	 Quantity DLET PrimPart
      Quantity DLET Proton
-	 Quantity TLET
+	 Quantity TLET All
 	 Quantity TLET PrimPart
      Quantity TLET Proton
-     Quantity dQ 100kev
+     Quantity dQ All_100kev
      Quantity dQ PrimPart_100kev
      Quantity dQ Proton_100kev
-     Quantity tQ 100kev
+     Quantity tQ All_100kev
      Quantity tQ PrimPart_100kev
      Quantity tQ Proton_100kev
-     Quantity dZeff2Beta2
+     Quantity dZeff2Beta2 All
      Quantity dZeff2Beta2 PrimPart
      Quantity dZeff2Beta2 Proton
-     Quantity tZeff2Beta2
+     Quantity tZeff2Beta2 All
      Quantity tZeff2Beta2 PrimPart
      Quantity tZeff2Beta2 Proton
 
@@ -65,24 +70,24 @@ Output
          Filename bin_data.bdo
          Geo Cells
 	 Quantity AvgEnergy PrimPart
-	 Quantity Dose
+	 Quantity Dose All
 	 Quantity Dose PrimPart
      Quantity Dose Proton
-	 Quantity DLET
+	 Quantity DLET All
 	 Quantity DLET PrimPart
      Quantity DLET Proton
-	 Quantity TLET
+	 Quantity TLET All
 	 Quantity TLET PrimPart
      Quantity TLET Proton
-     Quantity dQ 100kev
+     Quantity dQ All_100kev
      Quantity dQ PrimPart_100kev
      Quantity dQ Proton_100kev
-     Quantity tQ 100kev
+     Quantity tQ All_100kev
      Quantity tQ PrimPart_100kev
      Quantity tQ Proton_100kev
-     Quantity dZeff2Beta2
+     Quantity dZeff2Beta2 All
      Quantity dZeff2Beta2 PrimPart
      Quantity dZeff2Beta2 Proton
-     Quantity tZeff2Beta2
+     Quantity tZeff2Beta2 All
      Quantity tZeff2Beta2 PrimPart
      Quantity tZeff2Beta2 Proton
