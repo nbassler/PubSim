@@ -7,16 +7,20 @@ import matplotlib.pyplot as plt
 rel_path = '../../data/output/'
 dirname = os.path.dirname(__file__)
 data_path = os.path.join(dirname, rel_path + 'wdir/')
+
 file_path = '/home/fredo/projects/PubSim/2015_Guan/output/collected_data_2.2e7_parts_truncated.txt'
+
 
 rows = 5
 cols = 5
 
 # loading data into pandas
+
 with open(file_path, 'r') as col:
     df = pd.read_csv(col, delimiter=',')
 
 df['1_Over_Avg_Energy'] = np.divide(1, df['AvgEnergyPrim'])
+
 thick = df.PMMA.unique()
 headers = list(df.columns.values)
 
@@ -54,6 +58,7 @@ for i in headers[1:rows*cols:]:
         r1 = 0
         r2 += 1
 plt.show()
+
 
 rows = 5
 cols = 4
@@ -95,3 +100,4 @@ fontsize = 20
 fig.text(0.5, 0.04, 'LETd_Primary', ha='center', fontsize=fontsize)
 fig.text(0.04, 0.5, 'Quantity', va='center', rotation='vertical', fontsize=fontsize)
 plt.show()
+

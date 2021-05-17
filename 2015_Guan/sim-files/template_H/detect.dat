@@ -6,7 +6,6 @@ Geometry Mesh
     Y   -17.0   17.0    1
     Z   5.3   5.3005  1
 
-
 Filter
     Name PrimPart
     Z = 1
@@ -31,6 +30,7 @@ Filter
     A = 1
     ENUC > 0.1
 
+
 Filter
     Name All
     Z > 0
@@ -39,6 +39,7 @@ Filter
     Name All_100kev
     Z > 0
     ENUC > 0.1
+
 Output
          Filename data.txt
          Fileformat txt
