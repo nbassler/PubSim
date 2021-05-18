@@ -17,6 +17,11 @@ mscripter config_C.cfg
 
 4. Perform the MC-simulations in all the created subfolders
 
+```
+./prepare.sh
+find workspace_2021_05_18_15_49_12/ -name beam.dat -execdir sbatch run.sh \; # or similar
+```
+
 5. Now we can use collect_data.py under src/, to collect all generated data from the output of the MC-sims. 
 
 (The final fit of the data is done elsewhere)
