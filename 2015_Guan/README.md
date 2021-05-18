@@ -8,6 +8,13 @@ How to use?
 
 3. Now, we can create our shieldhit-directories using mcscripter config.cfg, which will use the files from src/template, and modify them accorging to the config.cfg-file
 
+```
+cd 2015_Guan/sim-files
+mscripter config_H.cfg
+mscripter config_He.cfg
+mscripter config_C.cfg
+```
+
 4. Perform the MC-simulations in all the created subfolders
 
 5. Now we can use collect_data.py under src/, to collect all generated data from the output of the MC-sims. 
