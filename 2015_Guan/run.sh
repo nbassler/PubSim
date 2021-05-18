@@ -1,9 +1,9 @@
 #!/bin/bash
 # Submission script for embarrasingly parallel runs on a SLURM cluster.
 #
-#SBATCH --ntasks=2  # number of tasks should be consistent with contents of job.conf !
+#SBATCH --ntasks=100  # number of tasks should be consistent with contents of job.conf !
 #SBATCH -p plgrid-short    # partitions with highest priorities: plgrid-short (prometheus), fast (eagle)
-#SBATCH --time=00:14:00    # walltime, should be below 1 hour for highest priority
+#SBATCH --time=00:59:00    # walltime, should be below 1 hour for highest priority
 #SBATCH --output=shieldhitJob.%J.out     # standard output file name
 #SBATCH --error=shieldhitJob.%J.err      # standard error output file name
 
@@ -21,7 +21,7 @@ export PATH=$PATH:$SCRATCH/shieldhit/  # prometheus
 # number of tasks should be consistent with --ntasks
 # here you can also specify number of primaries for each task
 cat > job.conf <<EOF
-0-1 shieldhit --seedoffset=%t --nstat=5000
+0-99 shieldhit --seedoffset=%t --nstat=50000
 EOF
 
 # run many parallel tasks using srun (probably around 100)
