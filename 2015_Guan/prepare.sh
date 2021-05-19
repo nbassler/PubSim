@@ -11,6 +11,7 @@ cp -rL data/output/wdir/* $WORKSPACE
 
 # copy running script to each of the simulation subdirectories
 find $WORKSPACE -type d -exec cp run.sh {} \;
+find $WORKSPACE -type d -exec cp collect.py {} \;
 
 # find all subdirectories containing beam.dat file and submit jobs from there
 
