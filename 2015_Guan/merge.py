@@ -55,12 +55,14 @@ def main(args=sys.argv[1:]):
         data_as_list_of_lists.append(['mean', ion, thickness, *mean_values])
         data_as_list_of_lists.append(['stderr', ion, thickness, *stderr_values])
 
+    # construct pandas dataframe from the datafiles
     df = pd.DataFrame.from_records(data=data_as_list_of_lists)
     df.rename(columns={0: 'stat_moment', 1: 'ion', 2: 'thickness'}, inplace=True)
     if parsed_args.verbosity:
         print(df.head())
 
-    df.to_csv(parsed_args.output)
+    # dump dataframe to CSV file
+    df.to_csv(parsed_args.output, index=False)
 
 
 if __name__ == '__main__':
