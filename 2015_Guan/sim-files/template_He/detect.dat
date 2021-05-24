@@ -7,10 +7,6 @@ Geometry Mesh
     Z   5.3   5.3005  1
 
 Filter
-    NAME 100kev
-    ENUC > 0.1
-
-Filter
     Name PrimPart
     Z = 2
     A = 4
@@ -34,30 +30,39 @@ Filter
     A = 4
     ENUC > 0.1
 
+Filter
+    Name All
+    Z > 0
+
+Filter
+    Name All_100kev
+    Z > 0
+    ENUC > 0.1
+
 Output
          Filename data.txt
          Fileformat txt
          Geo Cells
 	 Quantity AvgEnergy PrimPart
-	 Quantity Dose
+	 Quantity Dose All
 	 Quantity Dose PrimPart
      Quantity Dose Helium
-	 Quantity DLET
+	 Quantity DLET All
 	 Quantity DLET PrimPart
      Quantity DLET Helium
-	 Quantity TLET
+	 Quantity TLET All
 	 Quantity TLET PrimPart
      Quantity TLET Helium
-     Quantity dQ 100kev
+     Quantity dQ All_100kev
      Quantity dQ PrimPart_100kev
      Quantity dQ Helium_100kev
-     Quantity tQ 100kev
+     Quantity tQ All_100kev
      Quantity tQ PrimPart_100kev
      Quantity tQ Helium_100kev
-     Quantity dZeff2Beta2
+     Quantity dZeff2Beta2 All
      Quantity dZeff2Beta2 PrimPart
      Quantity dZeff2Beta2 Helium
-     Quantity tZeff2Beta2
+     Quantity tZeff2Beta2 All
      Quantity tZeff2Beta2 PrimPart
      Quantity tZeff2Beta2 Helium
 
@@ -65,24 +70,24 @@ Output
          Filename bin_data.bdo
          Geo Cells
 	 Quantity AvgEnergy PrimPart
-	 Quantity Dose
+	 Quantity Dose All
 	 Quantity Dose PrimPart
      Quantity Dose Helium
-	 Quantity DLET
+	 Quantity DLET All
 	 Quantity DLET PrimPart
      Quantity DLET Helium
-	 Quantity TLET
+	 Quantity TLET All
 	 Quantity TLET PrimPart
      Quantity TLET Helium
-     Quantity dQ 100kev
+     Quantity dQ All_100kev
      Quantity dQ PrimPart_100kev
      Quantity dQ Helium_100kev
-     Quantity tQ 100kev
+     Quantity tQ All_100kev
      Quantity tQ PrimPart_100kev
      Quantity tQ Helium_100kev
-     Quantity dZeff2Beta2
+     Quantity dZeff2Beta2 All
      Quantity dZeff2Beta2 PrimPart
      Quantity dZeff2Beta2 Helium
-     Quantity tZeff2Beta2
+     Quantity tZeff2Beta2 All
      Quantity tZeff2Beta2 PrimPart
      Quantity tZeff2Beta2 Helium
