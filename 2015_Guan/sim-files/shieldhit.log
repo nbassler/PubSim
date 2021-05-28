@@ -1,0 +1,17 @@
+  
+  *** SHIELD-HIT12A-beta *** Copyright (c) 2021
+  Institute of Nuclear Research RAS, Moscow, Russia and
+  Dept. of Physics and Astronomy, Aarhus University, Aarhus, Denmark and
+  Dept. of Experimental Clinical Oncology Aarhus University Hospital, Aarhus, Denmark.
+  
+  Version: v0.9.1-1-ge1e797cc
+  Build date: Mon, 03 May 2021 09:56:07 +0200  
+  
+
+ Run started at : Fri, 28 May 2021 10:58:57 +0200
+ on host        : fredo-ThinkPad-P52s
+ by user        : fredo
+  See /home/fredo/projects/shieldhit/shieldhit_375 --help for command line options.
+
+*** Error: sh_fopen() cannot open file ./detect.dat for reading.
+

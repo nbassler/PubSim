@@ -17,8 +17,6 @@ ion = 'H'
 
 rel_path = '../../data/'
 dirname = os.path.dirname(__file__)
-
-# data path should point to the csv-file containing the mean and stderr values for each PMMA thickness
 data_path = os.path.join(dirname, rel_path)
 
 for k in range(len(file_names)):

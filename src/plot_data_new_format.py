@@ -6,13 +6,11 @@ import matplotlib.pyplot as plt
 
 rel_path = '../../data/'
 dirname = os.path.dirname(__file__)
-
-# data path should point to the csv-file containing the mean and stderr values for each PMMA thickness
 data_path = os.path.join(dirname, rel_path + 'summary.csv')
-
+#file_path = '/home/fredo/projects/PubSim/2015_Guan/output/collected_data_2.2e7_parts_truncated.txt'
 header = 'AvgEnergyPrim Dose DosePrim DoseProt DLET DLETPrim DLETProt TLET TLETPrim TLETProt dQ dQPrim dQProt tQ tQPrim tQProt dZeff2Beta2 dZeff2Beta2Prim dZeff2Beta2Prot tZeff2Beta2 tZeff2Beta2Prim tZeff2Beta2Prot'
 
-ion = 'H'
+ion = 'He'
 
 rows = 5
 cols = 5
