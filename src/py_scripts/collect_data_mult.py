@@ -1,7 +1,7 @@
 import os
 import json
 
-rel_path = '../../data/'
+rel_path = '../../data/output/'
 #thickn_char = 76
 row_in_detect = 27
 header = 'PMMA AvgEnergyPrim Dose DosePrim DoseProt DLET DLETPrim DLETProt TLET TLETPrim TLETProt dQ dQPrim dQProt tQ tQPrim tQProt dZeff2Beta2 dZeff2Beta2Prim dZeff2Beta2Prot tZeff2Beta2 tZeff2Beta2Prim tZeff2Beta2Prot'
