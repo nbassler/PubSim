@@ -151,6 +151,22 @@ Output
      Quantity tZeff2Beta2 PrimPart
      Quantity tZeff2Beta2 Proton
 
+     Quantity moca_yf All_100kev
+     Quantity moca_yf PrimPart_100kev
+     Quantity moca_yf Proton_100kev
+     Quantity moca_yd All_100kev
+     Quantity moca_yd PrimPart_100kev
+     Quantity moca_yd Proton_100kev
+
+     Quantity moca_yf All
+     Quantity moca_yf PrimPart
+     Quantity moca_yf Proton
+     Quantity moca_yd All
+     Quantity moca_yd PrimPart
+     Quantity moca_yd Proton
+
+
+
 Output
          Filename bin_data.bdo
          Geo Cells
@@ -207,3 +223,17 @@ Output
      Quantity tZeff2Beta2 All
      Quantity tZeff2Beta2 PrimPart
      Quantity tZeff2Beta2 Proton
+
+     Quantity moca_yf All_100kev
+     Quantity moca_yf PrimPart_100kev
+     Quantity moca_yf Proton_100kev
+     Quantity moca_yd All_100kev
+     Quantity moca_yd PrimPart_100kev
+     Quantity moca_yd Proton_100kev
+
+     Quantity moca_yf All
+     Quantity moca_yf PrimPart
+     Quantity moca_yf Proton
+     Quantity moca_yd All
+     Quantity moca_yd PrimPart
+     Quantity moca_yd Proton
