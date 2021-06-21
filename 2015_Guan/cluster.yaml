@@ -1,0 +1,10 @@
+__default__:
+  time: "0-00:01:00"
+  partition: "plgrid-short"
+  ntasks: 1
+  job-name: "{rule}"
+
+run_mc_simulation:
+  time: "0-00:14:00"
+  partition: "plgrid-short"
+  ntasks: 10

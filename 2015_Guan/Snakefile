@@ -1,0 +1,122 @@
+import os
+import sys
+
+from snakemake.io import expand, glob_wildcards, directory
+
+try:
+    workspace = 'workspace_' + os.getenv('TIMEPATTERN')
+except TypeError:
+    workspace = 'workspace'
+
+config_wildcard = "sim-files/config_{ion}.cfg"
+ions, = glob_wildcards(config_wildcard)
+
+# TODO replace with dynamic files:
+# https://snakemake.readthedocs.io/en/v4.3.0/snakefiles/rules.html#dynamic-files
+
+from pymchelper.utils.mcscripter import Config
+pmma_dict = {}
+expected_output_files = []
+for ion in ions:
+    base_cwd = os.getcwd()  # this is needed first
+    cfg = Config(config_wildcard.format(ion=ion))  # this one calls os.chdir to change working directory to something evil
+    for pmma in cfg.table_dict['PMMA']:
+        expected_output_file = os.path.join(workspace, ion, "{ion}_{pmma}".format(ion=ion, pmma=pmma), 'bin_data_all.dat')
+        expected_output_files.append(expected_output_file)
+    os.chdir(base_cwd)  # let us change back working directory to the original one
+
+from pymchelper.input_output import frompattern
+
+def save_summary_file(estimator, output_dir, output_suffix="_all.dat"):
+    output_file_name = os.path.join(output_dir, estimator.file_corename + output_suffix)
+    with open(output_file_name, "w") as output_file:
+        # write column names
+        output_file.write("#")
+        for i, _ in enumerate(estimator.pages):
+            output_file.write(" {}".format(i))
+        output_file.write('\n')
+
+        # write mean values
+        for page in estimator.pages:
+            output_file.write("{} ".format(page.data[0, 0, 0, 0, 0]))
+        output_file.write('\n')
+
+        # write standard error values
+        for page in estimator.pages:
+            output_file.write("{} ".format(page.error[0, 0, 0, 0, 0]))
+        output_file.write('\n')
+
+rule all:
+    input:
+        expected_output_files
+    run:
+        print("all completed")
+
+rule run_mc_simulation:
+    input:
+        "{workspace}/{ion}/{ion}.log"
+    output:
+        "{workspace}/{ion}/{ion}_{pmma}/bin_data_all.dat"
+    log:
+        "{workspace}/{ion}/{ion}_{pmma}/snakemake.log"
+    run:
+        import subprocess
+        new_dir = os.path.join(wildcards.workspace, wildcards.ion, wildcards.ion + "_" + wildcards.pmma)
+        #print("remote exec job name", os.getenv("SLURM_JOB_NAME"))
+        nprim = str(config.get("nprim", 1000))
+        if "SLURM_JOB_NAME" in os.environ and os.getenv("SLURM_JOB_NAME") == 'run_mc_simulation':
+            with open(os.path.join(new_dir, "jobs.cfg"), "w") as file1:
+                file1.write("0-{ntasks} shieldhit -s --seedoffset=%t --nstat={nprim}\n".format(ntasks=int(os.getenv("SLURM_NTASKS"))-1, nprim=nprim))
+            cmd = ["srun", "--multi-prog", "jobs.cfg"]
+        else:
+            #print("local execution")
+            cmd = ["shieldhit", "-n", nprim, ".", "-s"]
+        subprocess.run(cmd, cwd=new_dir)
+        estimators = frompattern(new_dir + '/*.bdo')
+        for estimator in estimators:
+            save_summary_file(estimator, new_dir)
+
+
+rule generate_mc_input:
+    input:
+        "{workspace}/prepare.log",
+        config_wildcard
+    output:
+        "{workspace}/{ion}/{ion}.log"
+    run:
+        try:
+            import pymchelper
+        except ModuleNotFoundError:
+            pymchelper_path = os.getenv('PYMCHELPER_PATH')
+            if pymchelper_path:
+                sys.path.append(pymchelper_path)
+                import pymchelper
+            else:
+                print("pymchelper not installed, PYMCHELPER_PATH not set")
+                exit(-1)
+        import logging
+        from pymchelper.utils.mcscripter import Config, Template, Generator
+        logging.basicConfig(level=logging.INFO)
+
+        base_cwd = os.getcwd() # this is needed first
+        cfg = Config(input[1])  # this one calls os.chdir to change working directory to something evil
+        cfg.const_dict["WDIR"] = os.path.join(base_cwd, wildcards.workspace, wildcards.ion, "${NAME}")
+        t = Template(cfg)
+        Generator(t, cfg)
+        os.chdir(base_cwd)  # let us change back working directory to the original one
+
+        from pathlib import Path
+        f = os.path.join(base_cwd, wildcards.workspace, wildcards.ion, wildcards.ion + '.log')
+        Path(f).touch()
+        print("Touching {}".format(f))
+
+
+rule prepare_workspace:
+    output:
+        "{workspace}/prepare.log"
+    run:
+        os.makedirs(workspace,exist_ok=True)
+        from pathlib import Path
+        f = os.path.join(workspace,'prepare.log')
+        Path(f).touch()
+        print("Touching {}".format(f))
