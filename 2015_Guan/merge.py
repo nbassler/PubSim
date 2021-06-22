@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 
 import argparse
 import logging
@@ -11,6 +11,42 @@ import numpy as np
 import pandas as pd
 
 logger = logging.getLogger(__name__)
+
+
+def merge_files(workspace_dir, datafile_pattern, output_file):
+    logger.info("Reading from path {}".format(workspace_dir))
+
+    logger.info("Looking for files {}".format(datafile_pattern))
+
+    dir_glob = os.path.join(workspace_dir, '*', '*_*', datafile_pattern)
+    # list of files matching pattern
+    file_list = [f for f in iglob(dir_glob, recursive=True) if os.path.isfile(f)]
+    logger.info("Discovered {} files matching pattern".format(len(file_list)))
+    logger.info("Discovered files: {} , ...".format(", ".join(file_list[0:3])))
+
+    dataframes = []
+    for datafile in file_list:
+        # extract ion type and thickness from directory name
+        ion_pmma_part = Path(datafile).parts[-2]
+        ion = ion_pmma_part.split('_')[0]
+        pmma = float(ion_pmma_part.split('_')[1])
+
+        logger.debug("Ion {}, PMMA thickness {}".format(ion, pmma))
+
+        # read mean values and standard errors
+        df = pd.read_csv(datafile, delim_whitespace=True)
+        df.insert(0, 'stat_moment', 'mean')
+        df.loc[1, 'stat_moment'] = 'stderr'
+        df.insert(1, 'ion', ion)
+        df.insert(2, 'pmma', pmma)
+
+        dataframes.append(df)
+
+    # construct pandas dataframe from the datafiles
+    df = pd.concat(dataframes)
+
+    # dump dataframe to CSV file
+    df.to_csv(output_file, index=False, columns=dataframes[0].columns)
 
 
 def main(args=sys.argv[1:]):
@@ -29,42 +65,8 @@ def main(args=sys.argv[1:]):
     else:
         logging.basicConfig()
 
-    workspace_dir = parsed_args.input
-    logger.info("Reading from path {}".format(workspace_dir))
-
-    datafile_pattern = parsed_args.pattern
-    logger.info("Looking for files {}".format(datafile_pattern))
-
-    dir_glob = os.path.join(workspace_dir, '*_*', datafile_pattern)
-    # list of files matching pattern
-    file_list = [f for f in iglob(dir_glob, recursive=True) if os.path.isfile(f)]
-    logger.info("Discovered {} files matching pattern".format(len(file_list)))
-    logger.info("Discovered files: {} , ...".format(", ".join(file_list[0:3])))
-
-    data_as_list_of_lists = []
-    for datafile in file_list:
-        # extract ion type and thickness from directory name
-        ion_thickness_part = Path(datafile).parts[-2]
-        ion = ion_thickness_part.split('_')[0]
-        thickness = float(ion_thickness_part.split('_')[1])
-
-        # read mean values and standard errors
-        mean_values, stderr_values = np.genfromtxt(datafile).tolist()
-
-        # append to temporary datas tructure, including metadata read from dir name
-        data_as_list_of_lists.append(['mean', ion, thickness, *mean_values])
-        data_as_list_of_lists.append(['stderr', ion, thickness, *stderr_values])
-
-    # construct pandas dataframe from the datafiles
-    df = pd.DataFrame.from_records(data=data_as_list_of_lists)
-    df.rename(columns={0: 'stat_moment', 1: 'ion', 2: 'thickness'}, inplace=True)
-    if parsed_args.verbosity:
-        print(df.head())
-
-    # dump dataframe to CSV file
-    df.to_csv(parsed_args.output, index=False)
+    merge_files(parsed_args.input, parsed_args.pattern, parsed_args.output)
 
 
 if __name__ == '__main__':
     sys.exit(main(sys.argv[1:]))
-
