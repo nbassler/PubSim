@@ -54,7 +54,7 @@ def main(args=sys.argv[1:]):
     parser.add_argument('input', type=str, help="path to workspace directory", default='.')
     parser.add_argument('output', type=str, help="directory where output should be saved", default='.')
     parser.add_argument('--pattern', type=str, help="summary file filename or pattern",
-                        default='bin_data_all_with_nan.dat')
+                        default='bin_data_all.dat')
     parser.add_argument('-v', '--verbosity', action='count', help="increase output verbosity", default=0)
     parsed_args = parser.parse_args(args)
 
