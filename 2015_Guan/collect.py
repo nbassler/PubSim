@@ -49,11 +49,11 @@ def main(args=sys.argv[1:]):
     bdo_path = os.path.join(parsed_args.input, '*.bdo')
     logger.info("Reading from path {}".format(bdo_path))
 
-    estimators = frompattern(bdo_path, error=ErrorEstimate.stderr, nan=False)
+    estimators = frompattern(bdo_path, nan=False)
     for estimator in estimators:
         save_summary_file(estimator, parsed_args.output, output_suffix="all_with_nan.dat")
 
-    estimators = frompattern(bdo_path, error=ErrorEstimate.stderr, nan=True)
+    estimators = frompattern(bdo_path, nan=True)
     for estimator in estimators:
         save_summary_file(estimator, parsed_args.output, output_suffix="all_excluding_nan.dat")
 

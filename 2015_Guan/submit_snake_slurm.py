@@ -30,7 +30,7 @@ cmdline.append(slurm_args)
 if dependencies:
     cmdline.append("--dependency")
     # only keep numbers in dependencies list
-    dependencies = [ x for x in dependencies if x.isdigit() ]
+    dependencies = [x for x in dependencies if x.isdigit()]
     cmdline.append("afterok:" + ",".join(dependencies))
 
 cmdline.append(jobscript)
