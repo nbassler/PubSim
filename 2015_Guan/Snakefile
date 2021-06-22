@@ -38,14 +38,15 @@ rule run_mc_simulation:
     run:
         import subprocess
         new_dir = os.path.join(wildcards.workspace, wildcards.ion, wildcards.ion + "_" + wildcards.pmma)
-        #print("remote exec job name", os.getenv("SLURM_JOB_NAME"))
+        print("working dir", new_dir)
         nprim = str(config.get("nprim", 1000))
+        stop_time = str(config.get("stop_time", "00:02:00"))
         if "SLURM_JOB_NAME" in os.environ and os.getenv("SLURM_JOB_NAME") == 'run_mc_simulation':
             with open(os.path.join(new_dir, "jobs.cfg"), "w") as file1:
-                file1.write("0-{ntasks} shieldhit -s --seedoffset=%t --nstat={nprim} .\n".format(ntasks=int(os.getenv("SLURM_NTASKS"))-1, nprim=nprim))
+                file1.write("0-{ntasks} shieldhit -s --seedoffset=%t --time=\"{stop_time}\" --nstat={nprim} .\n".format(ntasks=int(os.getenv("SLURM_NTASKS"))-1, nprim=nprim, stop_time=stop_time))
             cmd = ["srun", "--multi-prog", "jobs.cfg"]
         else:
-            cmd = ["shieldhit", "-s", "-n", nprim, "."]
+            cmd = ["shieldhit", "-s", "-n", nprim, "-t", stop_time, "."]
         subprocess.run(cmd, cwd=new_dir)
         estimators = frompattern(new_dir + '/*.bdo')
         from collect import save_summary_file
