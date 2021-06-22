@@ -25,10 +25,15 @@ rule all:
     input:
         expected_files,
     output:
-        expand("{workspace}/summary.csv", workspace=workspace)
+        expand("{workspace}/summary.csv", workspace=workspace),
+        expand("{workspace}/summary.svg", workspace=workspace),
+        expand("{workspace}/summary.pdf", workspace=workspace)
     run:
         import merge
         merge.merge_files(workspace, 'bin_data_all.dat', output[0])
+        import plot
+        plot.plot(output[0], output[1])
+        plot.plot(output[0], output[2])
 
 rule run_mc_simulation:
     input:

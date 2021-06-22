@@ -46,6 +46,7 @@ def merge_files(workspace_dir, datafile_pattern, output_file):
     df = pd.concat(dataframes)
 
     # dump dataframe to CSV file
+    df.sort_values(by=['stat_moment', 'ion', 'pmma'], inplace=True)
     df.to_csv(output_file, index=False, columns=dataframes[0].columns)
 
 
