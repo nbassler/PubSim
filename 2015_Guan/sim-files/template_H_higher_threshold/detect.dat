@@ -1,10 +1,8 @@
-# Very simple test of new scoring system
-#---------------Geometry--------------------
 Geometry Mesh
-   Name Cells                  ! geometry type
+   Name Cells
     X   -17.0   17.0    1
     Y   -17.0   17.0    1
-    Z   5.3   5.3005  1
+    Z     5.3   5.3005  1
 
 Filter
     Name PrimPart
@@ -94,66 +92,8 @@ Filter
     ENUC > 1.0
 
 Output
-         Filename data.txt
-         Fileformat txt
-         Geo Cells
-	 Quantity AvgEnergy PrimPart
-	 Quantity Dose All
-	 Quantity Dose PrimPart
-     Quantity Dose Proton
-
-	 Quantity DLET All
-	 Quantity DLET PrimPart
-     Quantity DLET Proton
-	 Quantity TLET All
-	 Quantity TLET PrimPart
-     Quantity TLET Proton
-
-     Quantity dQ All_100kev
-     Quantity dQ PrimPart_100kev
-     Quantity dQ Proton_100kev
-     Quantity tQ All_100kev
-     Quantity tQ PrimPart_100kev
-     Quantity tQ Proton_100kev
-
-     Quantity dQ All_300kev
-     Quantity dQ PrimPart_300kev
-     Quantity dQ Proton_300kev
-     Quantity tQ All_300kev
-     Quantity tQ PrimPart_300kev
-     Quantity tQ Proton_300kev
-
-     Quantity dQ All_500kev
-     Quantity dQ PrimPart_500kev
-     Quantity dQ Proton_500kev
-     Quantity tQ All_500kev
-     Quantity tQ PrimPart_500kev
-     Quantity tQ Proton_500kev
-
-     Quantity dQ All_1000kev
-     Quantity dQ PrimPart_1000kev
-     Quantity dQ Proton_1000kev
-     Quantity tQ All_1000kev
-     Quantity tQ PrimPart_1000kev
-     Quantity tQ Proton_1000kev
-
-     Quantity dZ2Beta2 All_100kev
-     Quantity dZ2Beta2 PrimPart_100kev
-     Quantity dZ2Beta2 Proton_100kev
-     Quantity tZ2Beta2 All_100kev
-     Quantity tZ2Beta2 PrimPart_100kev
-     Quantity tZ2Beta2 Proton_100kev
-
-     Quantity dZeff2Beta2 All
-     Quantity dZeff2Beta2 PrimPart
-     Quantity dZeff2Beta2 Proton
-     Quantity tZeff2Beta2 All
-     Quantity tZeff2Beta2 PrimPart
-     Quantity tZeff2Beta2 Proton
-
-Output
-         Filename bin_data.bdo
-         Geo Cells
+     Filename bin_data.bdo
+     Geo Cells
 	 Quantity AvgEnergy PrimPart
 	 Quantity Dose All
 	 Quantity Dose PrimPart
