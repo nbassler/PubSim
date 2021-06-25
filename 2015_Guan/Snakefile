@@ -35,13 +35,32 @@ rule all:
         plot.plot(output[0], output[1])
         plot.plot(output[0], output[2])
 
-rule run_mc_simulation:
+
+rule collect_mc_output:
     input:
-        "{workspace}/{ion}/{ion}.log"
+        "{workspace}/{ion}/{ion}_{pmma}/mc.touch"
     output:
         "{workspace}/{ion}/{ion}_{pmma}/bin_data_all.dat"
     run:
+        new_dir = os.path.join(wildcards.workspace, wildcards.ion, wildcards.ion + "_" + wildcards.pmma)
+        print("working dir", new_dir)
+        estimators = frompattern(new_dir + '/*.bdo')
+        from collect import save_summary_file
+        for estimator in estimators:
+            save_summary_file(estimator, new_dir, output_suffix='_all.dat')
+
+rule run_mc_simulation:
+    input:
+        "{workspace}/{ion}/{ion}.touch"
+    output:
+        "{workspace}/{ion}/{ion}_{pmma}/mc.touch"
+    run:
         import subprocess
+        from pathlib import Path
+        f = os.path.join(output[0])
+        Path(f).touch()
+        print("Touching {}".format(f))
+
         new_dir = os.path.join(wildcards.workspace, wildcards.ion, wildcards.ion + "_" + wildcards.pmma)
         print("working dir", new_dir)
         nprim = str(config.get("nprim", 1000))
@@ -53,18 +72,14 @@ rule run_mc_simulation:
         else:
             cmd = ["shieldhit", "-s", "-n", nprim, "-t", stop_time, "."]
         subprocess.run(cmd, cwd=new_dir)
-        estimators = frompattern(new_dir + '/*.bdo')
-        from collect import save_summary_file
-        for estimator in estimators:
-            save_summary_file(estimator, new_dir, output_suffix='_all.dat')
 
 
 rule generate_mc_input:
     input:
-        "{workspace}/prepare.log",
+        "{workspace}/workspace.touch",
         config_wildcard
     output:
-        "{workspace}/{ion}/{ion}.log"
+        "{workspace}/{ion}/{ion}.touch"
     run:
         import logging
         from pymchelper.utils.mcscripter import Config, Template, Generator
@@ -78,17 +93,17 @@ rule generate_mc_input:
         os.chdir(base_cwd)  # let us change back working directory to the original one
 
         from pathlib import Path
-        f = os.path.join(base_cwd, wildcards.workspace, wildcards.ion, wildcards.ion + '.log')
+        f = os.path.join(base_cwd, wildcards.workspace, wildcards.ion, wildcards.ion + '.touch')
         Path(f).touch()
         print("Touching {}".format(f))
 
 
 rule prepare_workspace:
     output:
-        "{workspace}/prepare.log"
+        "{workspace}/workspace.touch"
     run:
         os.makedirs(workspace,exist_ok=True)
         from pathlib import Path
-        f = os.path.join(workspace,'prepare.log')
+        f = os.path.join(output[0])
         Path(f).touch()
         print("Touching {}".format(f))
