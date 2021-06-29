@@ -12,7 +12,7 @@ data_path = os.path.join(dirname, rel_path + 'summary.csv')
 
 header = 'AvgEnergyPrim Dose DosePrim DoseProt DLET DLETPrim DLETProt TLET TLETPrim TLETProt dQ dQPrim dQProt tQ tQPrim tQProt dZeff2Beta2 dZeff2Beta2Prim dZeff2Beta2Prot tZeff2Beta2 tZeff2Beta2Prim tZeff2Beta2Prot'
 
-ion = 'H'
+ion = 'C'
 
 rows = 5
 cols = 5

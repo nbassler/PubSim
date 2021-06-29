@@ -1,10 +1,8 @@
-# Very simple test of new scoring system
-#---------------Geometry--------------------
 Geometry Mesh
-   Name Cells                  ! geometry type
+   Name Cells
     X   -15.0   15.0    1
     Y   -15.0   15.0    1
-    Z   5.3   5.3005  1
+    Z     5.3   5.3005  1
 
 Filter
     Name PrimPart
@@ -40,35 +38,8 @@ Filter
     ENUC > 0.
 
 Output
-         Filename data.txt
-         Fileformat txt
-         Geo Cells
-	 Quantity AvgEnergy PrimPart
-	 Quantity Dose All
-	 Quantity Dose PrimPart
-     Quantity Dose Carbon
-	 Quantity DLET All
-	 Quantity DLET PrimPart
-     Quantity DLET Carbon
-	 Quantity TLET All
-	 Quantity TLET PrimPart
-     Quantity TLET Carbon
-     Quantity dQ All_100kev
-     Quantity dQ PrimPart_100kev
-     Quantity dQ Carbon_100kev
-     Quantity tQ All_100kev
-     Quantity tQ PrimPart_100kev
-     Quantity tQ Carbon_100kev
-     Quantity dZeff2Beta2 All
-     Quantity dZeff2Beta2 PrimPart
-     Quantity dZeff2Beta2 Carbon
-     Quantity tZeff2Beta2 All
-     Quantity tZeff2Beta2 PrimPart
-     Quantity tZeff2Beta2 Carbon
-
-Output
-         Filename bin_data.bdo
-         Geo Cells
+     Filename bin_data.bdo
+     Geo Cells
 	 Quantity AvgEnergy PrimPart
 	 Quantity Dose All
 	 Quantity Dose PrimPart

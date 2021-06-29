@@ -13,7 +13,16 @@ LETs = [[0.9, 1.2, 1.6, 1.8, 1.9, 2.3, 3.0, 5.1, 10.8, 15.2, 17.7, 19.0], [
     1.0, 2.5, 4.3, 6.1, 7.2, 9.6, 12.1, 13.6, 15.2, 16.5, 18.1, 19.5], [2.6, 4.7, 7.3, 11.1, 13.7, 15.4, 16.9, 18.3, 20.2, 21.4]]
 file_names = ['summary.csv', 'summary.csv', 'summary.csv']
 papers = ['Guan_2015', 'Patel_2017', 'Bronk_2020']
-ion = 'H'
+
+LETs = [[20.2, 39.8, 63.1, 70.6, 84.3, 100.8, 126.3, 157.6, 196.4, 242.9, 285.8, 308.4]]
+file_names = ['summary.csv']
+papers = ['Bronk_2020']
+ion = 'C'
+
+LETs = [[6.6, 11.1, 14.3, 21.9, 33.8, 41.6, 50.4, 57.9, 65.2, 70.3, 73.4, 70.1]]
+file_names = ['summary.csv']
+papers = ['Bronk_2020']
+ion = 'He'
 
 rel_path = '../../data/'
 dirname = os.path.dirname(__file__)
@@ -58,7 +67,7 @@ for k in range(len(file_names)):
 
 # First get a cubib interpolationg function for each quantity. This will be held in a dict
 # with the key being the header in df_mean and value being the function
-    quant_names = list(df_mean_ion.columns[3:])
+    quant_names = list(df_mean_ion.columns[2:])
     splines = {}
     for i in quant_names:
         f2 = interp1d(thick, df_mean_ion[i], kind='cubic')

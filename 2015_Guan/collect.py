@@ -12,24 +12,24 @@ logger = logging.getLogger(__name__)
 
 
 def save_summary_file(estimator, output_dir, output_suffix="all.dat"):
-    output_file_name = os.path.join(output_dir, estimator.file_corename + output_suffix)
+    estimator_corename = estimator.file_corename.rstrip('_')
+    output_file_name = os.path.join(output_dir, estimator_corename + output_suffix)
     logger.info("Saving data into {}".format(output_file_name))
-    with open(output_file_name, "w") as f:
+    with open(output_file_name, "w") as output_file:
         # write column names
-        f.write("#")
-        for i, _ in enumerate(estimator.pages):
-            f.write(" {}".format(i))
-        f.write('\n')
+        for page in estimator.pages:
+            output_file.write("{},{} ".format(page.name, page.page_filter_name))
+        output_file.write('\n')
 
         # write mean values
         for page in estimator.pages:
-            f.write("{} ".format(page.data[0, 0, 0, 0, 0]))
-        f.write('\n')
+            output_file.write("{} ".format(page.data[0, 0, 0, 0, 0]))
+        output_file.write('\n')
 
         # write standard error values
         for page in estimator.pages:
-            f.write("{} ".format(page.error[0, 0, 0, 0, 0]))
-        f.write('\n')
+            output_file.write("{} ".format(page.error[0, 0, 0, 0, 0]))
+        output_file.write('\n')
 
 
 def main(args=sys.argv[1:]):
