@@ -12,7 +12,7 @@ import matplotlib.pylab as plt
 logger = logging.getLogger(__name__)
 
 
-def plot(input_file, output_file):
+def plot_results(input_file, output_file):
     df = pd.read_csv(input_file)
     df.sort_values(by=['stat_moment', 'ion', 'pmma'], inplace=True)
     df_mean = df[df.stat_moment == 'mean']
@@ -32,9 +32,13 @@ def plot(input_file, output_file):
             if np.any(y):
                 ax.errorbar(x, y, y_err, fmt='.')
             else:
-                ax.plot(x,y, '.')
+                ax.plot_results(x, y, '.')
 
     fig.savefig(output_file)
+
+
+def plot_benchmark(workspace_dir, output_file):
+    pass
 
 
 def main(args=sys.argv[1:]):
@@ -51,7 +55,7 @@ def main(args=sys.argv[1:]):
     else:
         logging.basicConfig()
 
-    plot(parsed_args.input, parsed_args.output)
+    plot_results(parsed_args.input, parsed_args.output)
 
 
 if __name__ == '__main__':

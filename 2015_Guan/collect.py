@@ -1,6 +1,8 @@
 #!/usr/bin/env python
 
 import argparse
+import json
+from collections import OrderedDict
 import logging
 import os
 import sys
@@ -30,6 +32,23 @@ def save_summary_file(estimator, output_dir, output_suffix="all.dat"):
         for page in estimator.pages:
             output_file.write("{} ".format(page.error[0, 0, 0, 0, 0]))
         output_file.write('\n')
+
+
+def save_metadata_file(estimator, file_path):
+    d = OrderedDict()
+    for main_attr_name in sorted(estimator.__dict__.keys(), key=lambda x: x[0].lower()):
+        if main_attr_name == 'pages':
+            d[main_attr_name] = []
+            for page in estimator.pages:
+                page_dict = OrderedDict()
+                for page_attr_name in sorted(page.__dict__.keys(), key=lambda x: x[0].lower()):
+                    if page_attr_name not in ('estimator', 'data_raw', 'error_raw'):
+                        page_dict[page_attr_name] = str(page.__dict__[page_attr_name])
+                d[main_attr_name].append(page_dict)
+        else:
+            d[main_attr_name] = str(estimator.__dict__[main_attr_name])
+    with open(file_path, 'w', encoding='utf-8') as f:
+        json.dump(d, f, ensure_ascii=False, indent=4)
 
 
 def main(args=sys.argv[1:]):
