@@ -11,16 +11,17 @@ PMMA depths in turn are calculated from dLET_prim
 '''
 LETs = [[0.9, 1.2, 1.6, 1.8, 1.9, 2.3, 3.0, 5.1, 10.8, 15.2, 17.7, 19.0], [
     1.0, 2.5, 4.3, 6.1, 7.2, 9.6, 12.1, 13.6, 15.2, 16.5, 18.1, 19.5], [2.6, 4.7, 7.3, 11.1, 13.7, 15.4, 16.9, 18.3, 20.2, 21.4]]
-file_names = ['summary.csv', 'summary.csv', 'summary.csv']
+file_names = ['summary_all_ions.csv', 'summary_all_ions.csv', 'summary_all_ions.csv']
 papers = ['Guan_2015', 'Patel_2017', 'Bronk_2020']
+ion = "H"
 
 LETs = [[20.2, 39.8, 63.1, 70.6, 84.3, 100.8, 126.3, 157.6, 196.4, 242.9, 285.8, 308.4]]
-file_names = ['summary.csv']
+file_names = ['summary_all_ions.csv']
 papers = ['Bronk_2020']
 ion = 'C'
 
-LETs = [[6.6, 11.1, 14.3, 21.9, 33.8, 41.6, 50.4, 57.9, 65.2, 70.3, 73.4, 70.1]]
-file_names = ['summary.csv']
+LETs = [[6.6, 11.1, 14.3, 21.9, 33.8, 41.6, 50.4, 57.9, 65.2, 70.3, 73.4]]
+file_names = ['summary_all_ions.csv']
 papers = ['Bronk_2020']
 ion = 'He'
 
@@ -34,9 +35,14 @@ for k in range(len(file_names)):
     # loading data into pandas
     with open(data_path + file_names[k], 'r') as col:
         df = pd.read_csv(col, delimiter=',')
-
+    '''
     df.columns = ['stat_moment', 'ion', 'PMMA', 'AvgEnergyPrim', 'Dose', 'DosePrim', 'DoseProt', 'DLET', 'DLETPrim', 'DLETProt', 'TLET', 'TLETPrim', 'TLETProt',
                   'dQ', 'dQPrim', 'dQProt', 'tQ', 'tQPrim', 'tQProt', 'dZeff2Beta2', 'dZeff2Beta2Prim', 'dZeff2Beta2Prot', 'tZeff2Beta2', 'tZeff2Beta2Prim', 'tZeff2Beta2Prot']
+    df.columns = ['stat_moment', 'ion', 'PMMA', 'AvgEnergyPrim', 'Dose', 'DosePrim', 'DoseProt', 'DLET', 'DLETPrim', 'DLETProt', 'TLET', 'TLETPrim', 'TLETProt',
+                  'dQ_300keV', 'dQPrim_300keV', 'dQProt_300keV', 'tQ_300keV', 'tQPrim_300keV', 'tQProt_300keV', 'dZeff2Beta2_100keV', 'dZeff2Beta2Prim_100keV', 'dZeff2Beta2Prot_100keV', 'tZeff2Beta2_100keV', 'tZeff2Beta2Prim_100keV', 'tZeff2Beta2Prot_100keV']
+    '''
+    df.columns = ['stat_moment', 'ion', 'PMMA', 'AvgEnergyPrim', 'Dose', 'DosePrim', 'DLET', 'DLETPrim', 'TLET', 'TLETPrim',
+                  'dQ_100keV', 'dQPrim_100keV', 'tQ_100keV', 'tQPrim_100keV', 'dZeff2Beta2', 'dZeff2Beta2Prim', 'tZeff2Beta2', 'tZeff2Beta2Prim']
 
     # splitting mean and stdom
     df_mean = df[df['stat_moment'] == 'mean']
