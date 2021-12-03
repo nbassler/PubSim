@@ -8,7 +8,7 @@ END
 MEDIUM 2
 * EBT3 film
 STATE 0
-RHO 1.3399
+RHO 1.38
 NUCLID 1 0.377
 NUCLID 3 0.0004
 NUCLID 6 0.443
@@ -25,8 +25,8 @@ LOADDEDX
 END
 
 MEDIUM 4
-*water, used as estimate for the cells
-RHO 0.9982
-ICRU 276
+*Soft Tissue, ICRU, used as estimate for the cells
+RHO 1.03
+ICRU 262
 LOADDEDX
 END
