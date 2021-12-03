@@ -5,9 +5,9 @@ __default__:
   job-name: "{rule}"
 
 run_mc_simulation:
-  time: "0-00:14:00"
+  time: "0-00:34:00"
   partition: "plgrid-short"
-  ntasks: 10
+  ntasks: 100
 
 collect_mc_output:
   time: "0-00:04:00"

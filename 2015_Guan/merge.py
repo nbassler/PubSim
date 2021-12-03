@@ -1,21 +1,45 @@
 #!/usr/bin/env python3
 
 import argparse
+import json
 import logging
 import os
 import sys
+from collections import defaultdict
 from glob import iglob
 from pathlib import Path
 
-import numpy as np
 import pandas as pd
 
 logger = logging.getLogger(__name__)
 
 
-def merge_files(workspace_dir, datafile_pattern, output_file):
+def merge_metadata_files(workspace_dir, datafile_pattern, output_file):
     logger.info("Reading from path {}".format(workspace_dir))
+    logger.info("Looking for files {}".format(datafile_pattern))
+    dir_glob = os.path.join(workspace_dir, '*', '*_*', datafile_pattern)
+    # list of files matching pattern
+    file_list = [f for f in iglob(dir_glob, recursive=True) if os.path.isfile(f)]
+    logger.info("Discovered {} files matching pattern".format(len(file_list)))
+    logger.info("Discovered files: {} , ...".format(", ".join(file_list[0:3])))
 
+    global_metadata = defaultdict(dict)
+    for datafile in file_list:
+        # extract ion type and thickness from directory name
+        ion_pmma_part = Path(datafile).parts[-2]
+        ion = ion_pmma_part.split('_')[0]
+        logger.debug("Ion_pmma {}".format(ion_pmma_part))
+
+        # load metadata for each pmma depth and merge it with global dict for ion conf
+        with open(datafile, 'r') as f:
+            data = json.load(f)
+            global_metadata[ion].update(data)
+    with open(output_file, 'w', encoding='utf-8') as f:
+        json.dump(global_metadata, f, ensure_ascii=False, indent=4)
+
+
+def merge_output_files(workspace_dir, datafile_pattern, output_file):
+    logger.info("Reading from path {}".format(workspace_dir))
     logger.info("Looking for files {}".format(datafile_pattern))
 
     dir_glob = os.path.join(workspace_dir, '*', '*_*', datafile_pattern)
@@ -66,7 +90,7 @@ def main(args=sys.argv[1:]):
     else:
         logging.basicConfig()
 
-    merge_files(parsed_args.input, parsed_args.pattern, parsed_args.output)
+    merge_output_files(parsed_args.input, parsed_args.pattern, parsed_args.output)
 
 
 if __name__ == '__main__':

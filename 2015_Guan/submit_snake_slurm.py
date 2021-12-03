@@ -22,8 +22,8 @@ slurm_args = " -p {partition} -n {ntasks} -t {time} -J {job-name} ".format(**job
 
 if 'workspace' in job_properties["wildcards"]:
     workspace = job_properties["wildcards"]["workspace"]
-    os.makedirs(workspace,exist_ok=True)
-    os.makedirs(workspace + "/logs",exist_ok=True)
+    os.makedirs(workspace, exist_ok=True)
+    os.makedirs(workspace + "/logs", exist_ok=True)
     slurm_args += "-o {workspace}/logs/slurm-%j-%x.err -e {workspace}/logs/slurm-%j-%x.out ".format(workspace=workspace)
 cmdline.append(slurm_args)
 
@@ -34,7 +34,5 @@ if dependencies:
     cmdline.append("afterok:" + ",".join(dependencies))
 
 cmdline.append(jobscript)
-with open("/net/scratch/people/plgkongruencj/snake/1.log", "a") as f:
-    f.write(" ".join(cmdline) + "\n")
 
 os.system(" ".join(cmdline))
