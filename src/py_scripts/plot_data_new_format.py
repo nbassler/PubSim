@@ -3,6 +3,13 @@ import numpy as np
 import pandas as pd
 import math
 import matplotlib.pyplot as plt
+from scipy.interpolate import interp1d
+from scipy import optimize as op
+
+
+def linfit(x, a):
+    return a * x
+
 
 rel_path = '../../data/'
 dirname = os.path.dirname(__file__)
@@ -21,6 +28,17 @@ cols = 5
 with open(data_path, 'r') as col:
     df = pd.read_csv(col, delimiter=',')
 
+# scaling all LET columns to kev/um unit
+for i in quant_names:
+    if 'LET' in i:
+        df_mean_ion[i] = np.divide(df_mean_ion[i], 10)
+        df_stdom_ion[i] = np.divide(df_stdom_ion[i], 10)
+
+# Interpolating values before plotting against ref_quant, so make the distribution homogeneous along the x-axis
+splines = {}
+for i in quant_names:
+    f2 = interp1d(df_mean_ion[ref_quant], df_mean_ion[i], kind='cubic')
+    splines[i] = f2
 
 df.columns = ['stat_moment', 'ion', 'PMMA', 'AvgEnergyPrim', 'Dose', 'DosePrim', 'DoseProt', 'DLET', 'DLETPrim', 'DLETProt', 'TLET', 'TLETPrim', 'TLETProt',
               'dQ', 'dQPrim', 'dQProt', 'tQ', 'tQPrim', 'tQProt', 'dZeff2Beta2', 'dZeff2Beta2Prim', 'dZeff2Beta2Prot', 'tZeff2Beta2', 'tZeff2Beta2Prim', 'tZeff2Beta2Prot']
@@ -37,6 +55,15 @@ df_stdom_ion = df_stdom[df_stdom['ion'] == ion]
 
 thick = df_mean_ion['PMMA'].values
 
+
+quant_names = list(df_mean.columns[7:])
+quant_labels = ["$\mathrm{LET_{d}, all \: particles}$", "$\mathrm{LET_{d}, primary}$", "$\mathrm{LET_{d}, protons}$", "$\mathrm{LET_{t}, all \: particles}$", "$\mathrm{LET_{t}, primary}$", "$\mathrm{LET_{t}, protons}$", "$\mathrm{Q_{d}, all \: particles}$", "$\mathrm{Q_{d}, primary}$", "$\mathrm{Q_{d}, protons}$",
+                "$\mathrm{Q_{t}, all \: particles}$", "$\mathrm{Q_{t}, primary}$", "$\mathrm{Q_{t}, protons}$", "$\mathrm{Q_{eff, d}, all \: particles}$", "$\mathrm{Q_{eff, d}, primary}$", "$\mathrm{Q_{eff, d}, protons}$", "$\mathrm{Q_{eff, t}, all \: particles}$", "$\mathrm{Q_{eff, t}, primary}$", "$\mathrm{Q_{eff, t}, protons}$", "$\mathrm{1 \: / \: (primary \: energy) }$"]
+# create dict with names
+names = {}
+
+for idx, q in enumerate(quant_names):
+    names[q] = quant_labels[idx]
 
 # plotting raw data
 r1 = 0
@@ -66,6 +93,14 @@ df_mean_ion.sort_values(by=['DLETPrim'], inplace=True)
 
 r1 = 0
 r2 = 0
+
+# x is ref_quant min to max, with equal steps between
+start = np.min(df_mean_ion[ref_quant])
+stop = np.max(df_mean_ion[ref_quant])
+step = (stop-start)/2000
+
+x = np.arange(start=start, stop=stop, step=step)
+
 fig, axs = plt.subplots(rows, cols)
 for i in df.columns[3:]:
     print(i)
