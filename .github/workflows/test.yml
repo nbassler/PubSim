@@ -36,3 +36,9 @@ jobs:
         with:
           name: dag_plot
           path: ./2015_Guan/dag.png
+
+      - name: Run small workflow
+        working-directory: 2015_Guan
+        run: |
+          TIMEPATTERN=$( date +%Y_%m_%d_%H_%M_%S ) snakemake --config nprim=1000 stop_time=00:00:20 pmma_samples=2 -j2
+          ls -alh

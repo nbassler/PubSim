@@ -32,7 +32,7 @@ def plot_results(input_file, output_file):
             if np.any(y):
                 ax.errorbar(x, y, y_err, fmt='.')
             else:
-                ax.plot_results(x, y, '.')
+                ax.plot(x, y, '.')
 
     fig.savefig(output_file)
 
