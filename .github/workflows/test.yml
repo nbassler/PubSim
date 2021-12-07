@@ -20,4 +20,17 @@ jobs:
           python-version: 3.9
 
       - name: Install requirements
-        run: pip install -r 2015_Guan/requierements.txt
+        working-directory: 2015_Guan
+        run: pip install -r requierements.txt
+
+      - name: Genarate DAG
+        working-directory: 2015_Guan
+        run: |
+          TIMEPATTERN=$( date +%Y_%m_%d_%H_%M_%S ) snakemake --config pmma_samples=2 --dag | dot -Tpng > dag.png
+          ls -alh *png
+
+      - name: Archive artifacts
+        uses: actions/upload-artifact@v2
+        with:
+          name: dag_plot
+          path: ./2015_Guan/dag.png
