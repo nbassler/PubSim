@@ -21,7 +21,9 @@ jobs:
 
       - name: Install requirements
         working-directory: 2015_Guan
-        run: pip install -r requierements.txt
+        run: |
+          sudo apt install graphviz
+          pip install -r requierements.txt
 
       - name: Genarate DAG
         working-directory: 2015_Guan
