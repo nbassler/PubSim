@@ -31,6 +31,8 @@ def expected_collect_output_files(pmma_samples = -1):
     ions, = glob_wildcards(mcpartools_config_wildcard)
 
     for ion in ions:
+        if not ion.startswith('H'):
+            continue
         base_cwd = os.getcwd()  # this is needed first
         cfg = Config(mcpartools_config_wildcard.format(ion=ion))  # this one calls os.chdir to change working directory
         pmma_list = cfg.table_dict['PMMA']
@@ -108,6 +110,7 @@ rule generate_mc_input:
         logging.basicConfig(level=logging.INFO)
         base_cwd = os.getcwd() # this is needed first
         cfg = Config(input[1])  # this one calls os.chdir to change working directory to something evil
+        print("Ion: ", wildcards.ion)
         cfg.const_dict["WDIR"] = os.path.join(base_cwd, wildcards.workspace, wildcards.ion, "${NAME}")
         t = Template(cfg)
         Generator(t, cfg)
