@@ -1,3 +1,4 @@
+import fnmatch
 import logging
 import os
 import subprocess
@@ -30,9 +31,13 @@ def expected_collect_output_files(pmma_samples = -1):
     # inspect filesystem looking for files which match pattern and extract {ion} part
     ions, = glob_wildcards(mcpartools_config_wildcard)
 
-    for ion in ions:
-        if not ion.startswith('H'):
-            continue
+    # read optional pattern from env. variable INPUT_FILTER, if not available assume a pattern which passes all
+    input_filter = os.getenv('INPUT_FILTER', default='*')
+
+    # calculate a subset of configuration using a wildcard pattern
+    filtered_ions =  fnmatch.filter(ions, input_filter)
+    for ion in filtered_ions:
+
         base_cwd = os.getcwd()  # this is needed first
         cfg = Config(mcpartools_config_wildcard.format(ion=ion))  # this one calls os.chdir to change working directory
         pmma_list = cfg.table_dict['PMMA']
@@ -80,7 +85,6 @@ rule run_mc_simulation:
         print("Touching {}".format(f))
 
         new_dir = os.path.join(wildcards.workspace, wildcards.ion, wildcards.ion + "_" + wildcards.pmma)
-        print("working dir", new_dir)
         nprim = str(config.get("nprim", 1000))
         stop_time = str(config.get("stop_time", "00:02:00"))
         if "SLURM_JOB_NAME" in os.environ and os.getenv("SLURM_JOB_NAME") == 'run_mc_simulation':
@@ -110,7 +114,6 @@ rule generate_mc_input:
         logging.basicConfig(level=logging.INFO)
         base_cwd = os.getcwd() # this is needed first
         cfg = Config(input[1])  # this one calls os.chdir to change working directory to something evil
-        print("Ion: ", wildcards.ion)
         cfg.const_dict["WDIR"] = os.path.join(base_cwd, wildcards.workspace, wildcards.ion, "${NAME}")
         t = Template(cfg)
         Generator(t, cfg)
