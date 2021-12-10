@@ -20,7 +20,9 @@ def save_summary_file(estimator, output_dir, output_suffix="all.dat"):
     with open(output_file_name, "w") as output_file:
         # write column names
         for page in estimator.pages:
-            output_file.write("{},{} ".format(page.name, page.page_filter_name))
+            # multiple filters are separated by spaces, we join then with `_` to have easier postprocessing with pandas
+            filter_names_combined = page.page_filter_name.replace(' ', '_')
+            output_file.write("{},{} ".format(page.name, filter_names_combined))
         output_file.write('\n')
 
         # write mean values
@@ -79,4 +81,3 @@ def main(args=sys.argv[1:]):
 
 if __name__ == '__main__':
     sys.exit(main(sys.argv[1:]))
-
