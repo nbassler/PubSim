@@ -1,5 +1,3 @@
-# Very simple test of new scoring system
-#---------------Geometry--------------------
 Geometry Mesh
    Name Cells                  ! geometry type
     X   -17.0   17.0    1
@@ -31,118 +29,39 @@ Filter
 
 
 Output
-         Filename data.txt
-         Fileformat txt
-         Geo Cells
-	 Quantity AvgEnergy PrimPart
-	 Quantity Dose All
-	 Quantity Dose PrimPart
-     Quantity Dose Proton
-
-	 Quantity DLET All
-	 Quantity DLET PrimPart
-     Quantity DLET Proton
-	 Quantity TLET All
-	 Quantity TLET PrimPart
-     Quantity TLET Proton
-
-     Quantity dQ All 100kev
-     Quantity dQ PrimPart 100kev
-     Quantity dQ Proton 100kev
-     Quantity tQ All 100kev
-     Quantity tQ PrimPart 100kev
-     Quantity tQ Proton 100kev
-
-     Quantity dQ All 300kev
-     Quantity dQ PrimPart 300kev
-     Quantity dQ Proton 300kev
-     Quantity tQ All 300kev
-     Quantity tQ PrimPart 300kev
-     Quantity tQ Proton 300kev
-
-     Quantity dZ2Beta2 All 100kev
-     Quantity dZ2Beta2 PrimPart 100kev
-     Quantity dZ2Beta2 Proton 100kev
-     Quantity tZ2Beta2 All 100kev
-     Quantity tZ2Beta2 PrimPart 100kev
-     Quantity tZ2Beta2 Proton 100kev
-
-     Quantity dZeff2Beta2 All
-     Quantity dZeff2Beta2 PrimPart
-     Quantity dZeff2Beta2 Proton
-     Quantity tZeff2Beta2 All
-     Quantity tZeff2Beta2 PrimPart
-     Quantity tZeff2Beta2 Proton
-
-     Quantity moca_yf All 100kev
-     Quantity moca_yf PrimPart 100kev
-     Quantity moca_yf Proton 100kev
-     Quantity moca_yd All 100kev
-     Quantity moca_yd PrimPart 100kev
-     Quantity moca_yd Proton 100kev
-
-     Quantity moca_yf All
-     Quantity moca_yf PrimPart
-     Quantity moca_yf Proton
-     Quantity moca_yd All
-     Quantity moca_yd PrimPart
-     Quantity moca_yd Proton
-
-
-
-Output
-         Filename bin_data.bdo
-         Geo Cells
-	 Quantity AvgEnergy PrimPart
-	 Quantity Dose All
-	 Quantity Dose PrimPart
-     Quantity Dose Proton
-
-	 Quantity DLET All
-	 Quantity DLET PrimPart
-     Quantity DLET Proton
-	 Quantity TLET All
-	 Quantity TLET PrimPart
-     Quantity TLET Proton
-
-     Quantity dQ All 100kev
-     Quantity dQ PrimPart 100kev
-     Quantity dQ Proton 100kev
-     Quantity tQ All 100kev
-     Quantity tQ PrimPart 100kev
-     Quantity tQ Proton 100kev
-
-     Quantity dQ All 300kev
-     Quantity dQ PrimPart 300kev
-     Quantity dQ Proton 300kev
-     Quantity tQ All 300kev
-     Quantity tQ PrimPart 300kev
-     Quantity tQ Proton 300kev
-
-     Quantity dZ2Beta2 All 100kev
-     Quantity dZ2Beta2 PrimPart 100kev
-     Quantity dZ2Beta2 Proton 100kev
-     Quantity tZ2Beta2 All 100kev
-     Quantity tZ2Beta2 PrimPart 100kev
-     Quantity tZ2Beta2 Proton 100kev
-
-     Quantity dZeff2Beta2 All
-     Quantity dZeff2Beta2 PrimPart
-     Quantity dZeff2Beta2 Proton
-     Quantity tZeff2Beta2 All
-     Quantity tZeff2Beta2 PrimPart
-     Quantity tZeff2Beta2 Proton
-
-     Quantity moca_yf All 100kev
-     Quantity moca_yf PrimPart 100kev
-     Quantity moca_yf Proton 100kev
-     Quantity moca_yd All 100kev
-     Quantity moca_yd PrimPart 100kev
-     Quantity moca_yd Proton 100kev
-
-     Quantity moca_yf All
-     Quantity moca_yf PrimPart
-     Quantity moca_yf Proton
-     Quantity moca_yd All
-     Quantity moca_yd PrimPart
-     Quantity moca_yd Proton
+    Filename bin_data.bdo
+    Geo Cells
+    Quantity AvgEnergy PrimPart
+    Quantity Dose All
+    Quantity Dose PrimPart
+    Quantity Dose Proton
+    Quantity DLET All
+    Quantity DLET PrimPart
+    Quantity DLET Proton
+    Quantity TLET All
+    Quantity TLET PrimPart
+    Quantity TLET Proton
+    Quantity dQ All 100kev
+    Quantity dQ PrimPart 100kev
+    Quantity dQ Proton 100kev
+    Quantity tQ All 100kev
+    Quantity tQ PrimPart 100kev
+    Quantity tQ Proton 100kev
+    Quantity dQ All 300kev
+    Quantity dQ PrimPart 300kev
+    Quantity dQ Proton 300kev
+    Quantity tQ All 300kev
+    Quantity tQ PrimPart 300kev
+    Quantity tQ Proton 300kev
+    Quantity dZ2Beta2 All 100kev
+    Quantity dZ2Beta2 PrimPart 100kev
+    Quantity dZ2Beta2 Proton 100kev
+    Quantity tZ2Beta2 All 100kev
+    Quantity tZ2Beta2 PrimPart 100kev
+    Quantity tZ2Beta2 Proton 100kev
+    Quantity dZeff2Beta2 All
+    Quantity dZeff2Beta2 PrimPart
+    Quantity dZeff2Beta2 Proton
+    Quantity tZeff2Beta2 All
+    Quantity tZeff2Beta2 PrimPart
+    Quantity tZeff2Beta2 Proton
