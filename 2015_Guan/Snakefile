@@ -54,7 +54,6 @@ rule all:
         expected_files = expected_collect_output_files(int(config.get("pmma_samples", -1)))
     output:
         expand("{workspace}/summary.csv", workspace=workspace),
-        expand("{workspace}/summary.svg", workspace=workspace),
         expand("{workspace}/summary.pdf", workspace=workspace),
         expand("{workspace}/metadata.json", workspace=workspace),
     benchmark:
@@ -65,10 +64,9 @@ rule all:
 
         # make plots from output CSV file
         plot.plot_results(output[0], output[1])
-        plot.plot_results(output[0], output[2])
 
         # merge metadata files
-        merge.merge_metadata_files(workspace,'metadata.json', output[3])
+        merge.merge_metadata_files(workspace,'metadata.json', output[2])
 
 
 rule run_mc_simulation:

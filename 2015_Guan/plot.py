@@ -2,11 +2,12 @@
 
 import argparse
 import logging
+import os
 import sys
 
 import numpy as np
 import pandas as pd
-import matplotlib
+from matplotlib.backends.backend_pdf import PdfPages
 import matplotlib.pylab as plt
 
 logger = logging.getLogger(__name__)
@@ -19,26 +20,37 @@ def plot_results(input_file, output_file):
     df_stderr = df[df.stat_moment == 'stderr']
 
     ions = df.ion.unique()
-    no_of_filters = df.columns.size - 3
 
     # plot as function of PMMA depth
-    fig, ax_table = plt.subplots(nrows=df.columns.size - 3, ncols=df.ion.nunique(), figsize=(9, no_of_filters * 5))
-    for row_no, ax_row in enumerate(ax_table):
-        for col_no, ax in enumerate(ax_row):
-            x = df_mean[df_mean.ion == ions[col_no]].pmma
-            y = df_mean[df_mean.ion == ions[col_no]][df_mean.columns[3 + row_no]].values
-            y_err = df_stderr[df_stderr.ion == ions[col_no]][df_stderr.columns[3 + row_no]].values
-            ax.set_title("{}, {}".format(ions[col_no], df.columns[3 + row_no]))
-            if np.any(y):
-                ax.errorbar(x, y, y_err, fmt='.')
+
+    # Create the PdfPages object to which we will save the pages:
+    # The with statement makes sure that the PdfPages object is closed properly at
+    # the end of the block, even if an Exception occurs.
+    if output_file.endswith('.pdf'):
+        output_file_pdf = output_file
+    else:
+        output_file_pdf = output_file + '.pdf'
+    with PdfPages(output_file_pdf) as pdf:
+
+        for row_no in range(df.columns.size - 3):
+            fig, axes = plt.subplots(nrows=1, ncols=df.ion.nunique(), figsize=(9, 5))
+
+            for col_no, ax in enumerate(axes):
+                x = df_mean[df_mean.ion == ions[col_no]].pmma
+                y = df_mean[df_mean.ion == ions[col_no]][df_mean.columns[3 + row_no]].values
+                ax.set_title("{}, {}".format(ions[col_no], df.columns[3 + row_no]), fontsize=8)
+                ax.grid()
+                if np.any(y):
+                    y_err = df_stderr[df_stderr.ion == ions[col_no]][df_stderr.columns[3 + row_no]].values
+                    ax.errorbar(x, y, y_err, fmt='.')
+                else:
+                    ax.plot(x, y, '.')
+
+            if output_file.endswith('.pdf'):
+                pdf.savefig(figure=fig)
             else:
-                ax.plot(x, y, '.')
-
-    fig.savefig(output_file)
-
-
-def plot_benchmark(workspace_dir, output_file):
-    pass
+                file_base, file_ext = os.path.splitext(output_file)
+                fig.savefig(file_base + '_' + df.columns[3 + row_no] + file_ext)
 
 
 def main(args=sys.argv[1:]):
