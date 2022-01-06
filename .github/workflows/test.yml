@@ -1,0 +1,45 @@
+name: GitHub Actions Tests
+
+on: [push]
+
+jobs:
+  Explore-GitHub-Actions:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Welcome
+        run: |
+          echo "🎉 The job was automatically triggered by a ${{ github.event_name }} event."
+          echo "🔎 The name of your branch is ${{ github.ref }} and your repository is ${{ github.repository }}."
+
+      - name: Check out repository code
+        uses: actions/checkout@v2
+
+      - name: Set up Python
+        uses: actions/setup-python@v2.3.1
+        with:
+          python-version: 3.9
+
+      - name: Install requirements
+        working-directory: 2015_Guan
+        run: |
+          sudo apt install graphviz
+          pip install -r requierements.txt
+
+      - name: Genarate DAG
+        working-directory: 2015_Guan
+        run: |
+          TIMEPATTERN=$( date +%Y_%m_%d_%H_%M_%S ) snakemake --config pmma_samples=2 --dag | dot -Tpng > dag.png
+          ls -alh *png
+
+      - name: Archive artifacts
+        uses: actions/upload-artifact@v2
+        with:
+          name: dag_plot
+          path: ./2015_Guan/dag.png
+
+#      Code below won't work until we have access to the DEMO version of SH12A with support for moca_* detectors
+#      - name: Run small workflow
+#        working-directory: 2015_Guan
+#        run: |
+#          TIMEPATTERN=$( date +%Y_%m_%d_%H_%M_%S ) snakemake --config nprim=1000 stop_time=00:00:20 pmma_samples=2 -j2
+#          ls -alh

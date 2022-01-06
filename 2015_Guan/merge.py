@@ -50,7 +50,7 @@ def merge_output_files(workspace_dir, datafile_pattern, output_file):
 
     dataframes = []
     for datafile in file_list:
-        # extract ion type and thickness from directory name
+        # extract ion type and thickness from directory name, splitting on `_`
         ion_pmma_part = Path(datafile).parts[-2]
         ion = ion_pmma_part.split('_')[0]
         pmma = float(ion_pmma_part.split('_')[1])

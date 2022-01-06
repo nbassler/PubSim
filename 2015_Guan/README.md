@@ -14,7 +14,7 @@ cd 2015_Guan
 ./run_local.sh
 ```
 
-or equivalent (for 1000 primaries and MC simulation time 1 minut, with only 2 PMMA samples per ion, on 4 threads)
+or equivalent (for 1000 primaries and MC simulation time 1 minute, with only 2 PMMA samples per ion, on 4 threads)
 
 ```shell
 TIMEPATTERN=$( date +%Y_%m_%d_%H_%M_%S ) snakemake --config nprim=1000 stop_time=00:01:00 pmma_samples=2 -j4
@@ -50,3 +50,9 @@ TIMEPATTERN=$( date +%Y_%m_%d_%H_%M_%S ) snakemake --config pmma_samples=2 --dag
 ```
 
 ![alt text](dag.png "DAG graph for 2 PMMA samples per ion")
+
+## Run workflow on some subsample
+
+```shell
+INPUT_FILTER="H[W|T]*" TIMEPATTERN=$( date +%Y_%m_%d_%H_%M_%S ) snakemake --config pmma_samples=2 --dag | dot -Tpng > dag.png
+```

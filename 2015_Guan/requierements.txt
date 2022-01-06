@@ -1,3 +1,4 @@
+wheel
 snakemake
 pymchelper>=1.7.0
 numpy
